@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- robot description -->
+    <include file="$(find jackal_description)/launch/description.launch" />
+
+    <!-- decompress -->
+    <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/zed_node/rgb/image_rect_color raw out:=/zed_node/rgb/image_rect_color" />
+    <node name="republishDepth" type="republish" pkg="image_transport" output="screen" args="compressedDepth in:=/zed_node/depth/depth_registered raw out:=/zed_node/depth/depth_registered" />
+
+    <!-- Convert it into a point cloud -->
+    <node pkg="nodelet" type="nodelet" name="nodelet_manager"  args="manager"/>  
+
+    <node pkg="nodelet" type="nodelet" name="cloudify" args="load depth_image_proc/point_cloud_xyzrgb nodelet_manager --no-bond">
+        <remap from="depth_registered/image_rect" to="/zed_node/depth/depth_registered"/>
+        <remap from="depth_registered/points" to="/zed_node/depth_registered/points"/>
+        <remap from="rgb/image_rect_color" to="/zed_node/rgb/image_rect_color"/>
+        <remap from="rgb/camera_info" to="/zed_node/rgb/camera_info"/>
+    </node>
+
+</launch>
