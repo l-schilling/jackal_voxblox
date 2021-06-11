@@ -1,7 +1,7 @@
 # jackal_voxblox
 
-Small package that provides some information record rosbags and run them with voxblox. 
-Voxblox and the jackal_simulation_rob installation are needed, please take a look at them for installation
+Small package that provides some information how record rosbags and run them with voxblox. 
+Voxblox and the jackal_simulation_rob installation are needed, please take a look at the repos:
 
 https://github.com/ethz-asl/voxblox
 https://github.com/l-schilling/jackal_simulation_rob
